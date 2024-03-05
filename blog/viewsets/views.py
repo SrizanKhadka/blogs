@@ -1,0 +1,11 @@
+# we will be using this viewsets for users operations
+
+from django.contrib.auth.models import User
+from rest_framework import viewsets
+from blog.viewsets.serializer import UserSerializer
+
+
+class UserViewSets(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    print(queryset)
