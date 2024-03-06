@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.conf import settings
+
 
 # Create your models here.
 
@@ -26,7 +28,8 @@ class Blogs(models.Model):
 
 
 class Comments(models.Model):
-    commenter = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user")
+   # commenter = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user")
+    commenter = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="user")
     blog = models.ForeignKey(Blogs, on_delete=models.CASCADE, related_name="blog_comments")
     comment = models.CharField(max_length=500)
 
