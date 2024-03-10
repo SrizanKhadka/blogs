@@ -36,6 +36,7 @@ from django.contrib import admin
 router = DefaultRouter()
 router.register("users", views.UserViewSets, basename="user")
 urlpatterns = [
-    path("admin/", admin.site.urls), 
-     path("users/", include(router.urls))
-     ]
+    path("admin/", admin.site.urls),
+    path("users/", include(router.urls)),
+    path("api/blog/", include("authentication.api.urls")),
+]

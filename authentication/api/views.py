@@ -14,17 +14,22 @@ class UserRegistrationView(generics.CreateAPIView):
 class LoginAPIView(APIView):
 
     def post(self, request):
-        user = authenticate(
-            username=request.data["username"], password=request.data["password"]
-        )
+        username = request.data["username"]
+        password = request.data["password"]
+        print(f"Attempting login for username: {username}, password: {password}")
+
+        user = authenticate(username=username, password=password)
+
         if user:
+            print(f"Authentication successful for user: {user}")
             token, created = Token.objects.get_or_create(user=user)
-            return Response({"token": token.key})
+            return Response({"token": token.key, "created": created})
         else:
-            return Response({"error": "Invalid credentials"}, status=401)
+            print("Authentication failed")
+            return Response({"error": "Invalid credentials. Plese enter valid username and passwod"}, status=401)
 
 
-'''
+"""
  This is tuple unpacking. The result of Token.objects.get_or_create(user=user) is a tuple containing two values: 
  the token object and a boolean indicating whether the token was created (True) or already existed (False). 
  
@@ -32,4 +37,4 @@ class LoginAPIView(APIView):
 
 token will hold the Token object (either existing or newly created).
 created will be a boolean indicating whether the token was just created (True) or already existed (False).
-'''
+"""
