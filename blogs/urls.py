@@ -37,6 +37,7 @@ router = DefaultRouter()
 router.register("users", views.UserViewSets, basename="user")
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path('api/', include('blog.api.urls')),
     path("users/", include(router.urls)),
     path("api/blog/", include("authentication.api.urls")),
 ]
